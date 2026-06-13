@@ -1,279 +1,421 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prime Video</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prime Video Clone</title>
 
-        html {
-            scroll-behavior: smooth;
-            scroll-snap-type: y mandatory;
-        }
+<style>
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Amazon Ember", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
 
-        body {
-            margin: 0;
-            background: #00050d;
-            color: #ffffff;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+body{
+    background:#00050d;
+    color:white;
+    overflow-x:hidden;
+}
 
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 20;
-            width: 100%;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            gap: 28px;
-            padding: 0 48px;
-            background: #00050d;
-            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12);
-        }
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:80px;
+    background:#000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 40px;
+    z-index:1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-        .logo {
-            font-size: 18px;
-            font-weight: 700;
-            white-space: nowrap;
-        }
+.logo{
+    font-size:22px;
+    font-weight:bold;
+}
 
-        .logo span {
-            color: #99d8ff;
-        }
+.logo span{
+    color:#00a8e1;
+}
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            flex: 1;
-        }
+.nav-links{
+    display:flex;
+    gap:40px;
+    font-size:18px;
+}
 
-        .nav-links a {
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-            text-decoration: none;
-            white-space: nowrap;
-        }
+.nav-links a{
+    text-decoration:none;
+    color:white;
+    font-weight:600;
+}
 
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-        }
+.right-nav{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
 
-        .join-btn {
-            border: 0;
-            border-radius: 4px;
-            padding: 11px 17px;
-            background: #1a98ff;
-            color: #ffffff;
-            font: inherit;
-            cursor: pointer;
-        }
+.join-btn{
+    background:#00a8e1;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:4px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    transition: background 0.3s;
+}
+.join-btn:hover {
+    background:#0091c3;
+}
 
-        .page {
-            min-height: 100vh;
-            display: grid;
-            grid-template-columns: 47% 53%;
-            align-items: center;
-            padding: 56px 0 0;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
-            background:
-                linear-gradient(90deg, #000000 0%, #000000 46%, rgba(0, 0, 0, 0.82) 53%, rgba(0, 5, 13, 0.15) 72%),
-                #00050d;
-            overflow: hidden;
-        }
+.section{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+}
 
-        .content {
-            max-width: 610px;
-            padding: 0 54px;
-        }
+.hero{
+    background:#000;
+    display:flex;
+    justify-content:space-between;
+}
 
-        h1 {
-            margin: 0 0 28px;
-            font-size: clamp(38px, 4.7vw, 58px);
-            line-height: 1.05;
-            letter-spacing: 0;
-        }
+.left{
+    width:50%;
+    padding-left:70px;
+}
 
-        p {
-            max-width: 520px;
-            margin: 0 0 42px;
-            font-size: clamp(18px, 2vw, 25px);
-            line-height: 1.36;
-        }
+.left h1{
+    font-size:64px;
+    margin-bottom:20px;
+    line-height:1.1;
+    font-weight:400;
+}
 
-        .main-btn {
-            border: 0;
-            border-radius: 7px;
-            padding: 20px 28px;
-            background: #ffffff;
-            color: #000000;
-            font-size: 20px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+.left p{
+    font-size:24px;
+    line-height:1.4;
+    margin-bottom:40px;
+    font-weight:400;
+}
 
-        .image-area {
-            width: 100%;
-            height: calc(100vh - 56px);
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            overflow: hidden;
-        }
+.plan-btn{
+    width:100%;
+    max-width:550px;
+    background:#00a8e1;
+    color:white;
+    border:none;
+    border-radius:4px;
+    padding:20px;
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:15px;
+    cursor:pointer;
+    transition: background 0.3s;
+}
+.plan-btn:hover{
+    background:#0091c3;
+}
 
-        .image-area img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center right;
-            display: block;
-        }
+.small{
+    text-align:center;
+    font-size:20px;
+    margin-bottom:35px;
+    font-weight:bold;
+}
 
-        .page:nth-child(3) .image-area img {
-            object-fit: contain;
-            padding: 0 42px;
-        }
+.right{
+    width:50%;
+    height:100vh;
+    background:url('https://m.media-amazon.com/images/G/31/AmazonVideo/2019/MLP.jpg');
+    background-size:cover;
+    background-position:center;
+}
 
-        @media (max-width: 900px) {
-            .navbar {
-                height: 64px;
-                gap: 14px;
-                padding: 0 18px;
-            }
+.rent-section{
+    background:#000;
+}
 
-            .nav-links {
-                gap: 14px;
-            }
+.rent-left{
+    width:50%;
+    padding-left:70px;
+}
 
-            .nav-links a:nth-child(n+3),
-            .nav-actions span {
-                display: none;
-            }
+.rent-left h1{
+    font-size:72px;
+    margin-bottom:40px;
+}
 
-            .join-btn {
-                padding: 10px 12px;
-            }
+.rent-left p{
+    font-size:25px;
+    margin-bottom:40px;
+}
 
-            .page {
-                min-height: 100svh;
-                grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr;
-                padding-top: 64px;
-                background: #000000;
-            }
+.rent-btn{
+    background:#00a8e1;
+    color:white;
+    border:none;
+    padding:18px 35px;
+    border-radius:4px;
+    font-size:20px;
+    font-weight:700;
+    cursor:pointer;
+    transition: background 0.3s;
+}
+.rent-btn:hover{
+    background:#0091c3;
+}
 
-            .content {
-                max-width: none;
-                padding: 34px 24px 20px;
-            }
+.rent-right{
+    width:50%;
+    height:100vh;
+    background:url('https://m.media-amazon.com/images/G/31/AmazonVideo/2021/X-site/MLP/TVOD/TVOD_MLP_Right.jpg');
+    background-size:cover;
+    background-position:center;
+}
 
-            h1 {
-                margin-bottom: 18px;
-                font-size: clamp(32px, 9vw, 48px);
-            }
+.subscriptions{
+    min-height:100vh;
+    background:#00050d;
+    display:flex;
+    align-items:center;
+    padding:80px;
+}
 
-            p {
-                margin-bottom: 25px;
-                font-size: 18px;
-            }
+.sub-left{
+    width:50%;
+}
 
-            .main-btn {
-                padding: 16px 20px;
-                font-size: 17px;
-            }
+.sub-left h1{
+    font-size:72px;
+    margin-bottom:40px;
+}
 
-            .image-area {
-                height: auto;
-                min-height: 42vh;
-                align-items: flex-start;
-            }
+.sub-left p{
+    font-size:24px;
+    line-height:1.5;
+}
 
-            .image-area img,
-            .page:nth-child(3) .image-area img {
-                width: 100%;
-                height: auto;
-                max-height: 52vh;
-                object-fit: contain;
-                padding: 0;
-            }
-        }
+.sub-right{
+    width:50%;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
 
-        @media (max-width: 560px) {
-            .logo {
-                font-size: 15px;
-            }
+.card{
+    height:170px;
+    background:linear-gradient(to right,#3a8fbe,#122b74);
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:34px;
+    font-weight:bold;
+    transition:0.3s;
+}
 
-            .nav-links a {
-                font-size: 13px;
-            }
+.card:hover{
+    transform:scale(1.05);
+}
 
-            .nav-actions {
-                gap: 8px;
-            }
-        }
-    </style>
+.footer{
+    background:#222;
+    text-align:center;
+    padding:40px;
+}
+
+.footer h2{
+    margin-bottom:20px;
+}
+
+.footer a{
+    color:#79b8ff;
+    text-decoration:none;
+    margin:0 20px;
+    font-size:20px;
+}
+
+.footer p{
+    margin-top:20px;
+    color:#aaa;
+    font-size:18px;
+}
+
+@media(max-width:1200px){
+
+.hero,
+.rent-section,
+.subscriptions{
+    flex-direction:column;
+}
+
+.left,
+.right,
+.rent-left,
+.rent-right,
+.sub-left,
+.sub-right{
+    width:100%;
+}
+
+.plan-btn{
+    width:90%;
+}
+
+.sub-right{
+    grid-template-columns:repeat(2,1fr);
+}
+
+.left h1,
+.rent-left h1,
+.sub-left h1{
+    font-size:50px;
+}
+}
+
+@media(max-width:768px){
+
+.nav-links{
+    display:none;
+}
+
+.left h1,
+.rent-left h1,
+.sub-left h1{
+    font-size:40px;
+}
+
+.left p,
+.rent-left p,
+.sub-left p{
+    font-size:18px;
+}
+
+.plan-btn{
+    width:90%;
+    font-size:20px;
+}
+
+.sub-right{
+    grid-template-columns:1fr;
+}
+}
+</style>
 </head>
+
 <body>
-    <header class="navbar">
-        <div class="logo">prime <span>video</span></div>
-        <nav class="nav-links" aria-label="Primary navigation">
-            <a href="#page1">Home</a>
-            <a href="#page2">Movies</a>
-            <a href="#page3">TV shows</a>
-            <a href="#page1">Live TV</a>
-            <a href="#page3">Subscriptions</a>
-        </nav>
-        <div class="nav-actions">
-            <span>Search</span>
-            <span>EN</span>
-            <button class="join-btn">Join Prime</button>
-        </div>
-    </header>
 
-    <main>
-        <section class="page" id="page1">
-            <div class="content">
-                <h1>Welcome to Prime Video</h1>
-                <p>Join Prime to watch the latest movies, TV shows and award-winning Amazon Originals</p>
-                <button class="main-btn">Sign in to join Prime</button>
-            </div>
-            <div class="image-area">
-                <img src="amazon_1.jpeg" alt="Prime Video movies and shows">
-            </div>
-        </section>
+<div class="navbar">
+    <div class="logo">prime <span>video</span></div>
 
-        <section class="page" id="page2">
-            <div class="content">
-                <h1>Movie rentals on Prime Video</h1>
-                <p>Early Access to new movies, before digital subscription</p>
-                <button class="main-btn">Rent now</button>
-            </div>
-            <div class="image-area">
-                <img src="amazon_2.jpeg" alt="Prime Video rental movies">
-            </div>
-        </section>
+    <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Free to me</a>
+        <a href="#">Movies</a>
+        <a href="#">TV shows</a>
+        <a href="#">Live TV</a>
+        <a href="#">Subscriptions</a>
+    </div>
 
-        <section class="page" id="page3">
-            <div class="content">
-                <h1>Your favorite subscriptions all in one place</h1>
-                <p>Customers can subscribe to get access to a variety of premium and specialty content, easily accessible within the Prime Video app</p>
-            </div>
-            <div class="image-area">
-                <img src="amazon_3.jpeg" alt="Prime Video subscription channels">
-            </div>
-        </section>
-    </main>
+    <div class="right-nav">
+        <span>🔍</span>
+        <span>EN ▼</span>
+        <span>⚫</span>
+        <button class="join-btn">Join Prime</button>
+    </div>
+</div>
+
+<section class="section hero">
+
+    <div class="left">
+
+        <h1>Welcome to Prime Video</h1>
+
+        <p>
+            Watch the latest movies, TV shows, and award-winning
+            Amazon Originals
+        </p>
+        <br><br>
+    </div>
+
+    <div class="right"></div>
+
+</section>
+
+<section class="section rent-section">
+
+    <div class="rent-left">
+
+        <h1>Movie rentals on Prime Video</h1>
+
+        <p>
+            Early Access to new movies,
+            before digital subscription
+        </p>
+    </div>
+
+    <div class="rent-right"></div>
+
+</section>
+
+<section class="subscriptions">
+
+    <div class="sub-left">
+
+        <h1>
+            Your favorite subscriptions
+            all in one place
+        </h1>
+
+        <p>
+            Customers can subscribe to get access
+            to a variety of premium and specialty
+            content, easily accessible within
+            the Prime Video app.
+        </p>
+
+    </div>
+
+    <div class="sub-right">
+
+        <div class="card">Apple TV</div>
+        <div class="card">MovieSphere+</div>
+        <div class="card">Lionsgate</div>
+
+        <div class="card">Goldmines</div>
+        <div class="card">Anime Times</div>
+        <div class="card">Manorama</div>
+
+        <div class="card">Chaupal</div>
+        <div class="card">BBC Player</div>
+        <div class="card">League Pass</div>
+
+    </div>
+
+</section>
+
+<footer class="footer">
+
+    <h2>prime video</h2>
+
+    <a href="#">Terms and Privacy Notice</a>
+    <a href="#">Send us feedback</a>
+    <a href="#">Help</a>
+
+    <p>
+        ©️ 1996-2026, Amazon.com, Inc. or its affiliates
+    </p>
+
+</footer>
+
 </body>
 </html>
